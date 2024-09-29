@@ -7,6 +7,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Font;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -17,11 +19,11 @@ public class JFrame_Janela extends JFrame {
 
 	static JFrame_Janela frame;
 	private final JMenuBar menuBar = new JMenuBar();
-	private final JMenu menuContato = new JMenu("Contato");
-	private final JMenuItem itemCadastrar = new JMenuItem("Cadastrar");
-	private final JMenuItem itemConsultar = new JMenuItem("Consultar");
-	private final JMenuItem itemAlterar = new JMenuItem("Alterar");
-	private final JMenuItem itemRemover = new JMenuItem("Remover");
+	private final JMenu menuContato = new JMenu("Opções");
+	private final JMenuItem itemCadastrar = new JMenuItem("Cadastrar contato");
+	private final JMenuItem itemConsultar = new JMenuItem("Consultar contato");
+	private final JMenuItem itemAlterar = new JMenuItem("Alterar contato");
+	private final JMenuItem itemRemover = new JMenuItem("Remover contato");
 	private final JMenu menuAjuda = new JMenu("Ajuda");
 	private final JMenuItem itemSobre = new JMenuItem("Sobre");
 
@@ -61,6 +63,11 @@ public class JFrame_Janela extends JFrame {
 		this.itemCadastrar.setForeground(Color.BLACK);
 		this.itemCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.menuContato.add(this.itemCadastrar);
+		this.itemConsultar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaConsulta();
+			}
+		});
 		this.itemConsultar.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemConsultar);
 		this.itemAlterar.setForeground(Color.BLACK);
@@ -73,13 +80,20 @@ public class JFrame_Janela extends JFrame {
 		this.menuAjuda.add(this.itemSobre);
 		this.itemSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				JOptionPane.showMessageDialog(frame, "Trabalho Avaliativo - Agenda de Contatos\n" + "Versão: 1.0\n"
+						+ "Desenvolvedor: Rafael Müller Tischler\n" + "E-mail: rafaelmullertischler@gmail.com\n",
+						"Sobre", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}
 
 	protected void abrirTelaCadastro() {
 		this.setContentPane(new TelaCadastro());
+		this.setVisible(true);
+	}
+
+	protected void abrirTelaConsulta() {
+		this.setContentPane(new TelaConsulta());
 		this.setVisible(true);
 	}
 }
