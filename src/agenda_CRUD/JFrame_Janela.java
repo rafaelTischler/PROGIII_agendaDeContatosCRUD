@@ -50,7 +50,7 @@ public class JFrame_Janela extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
 		setJMenuBar(this.menuBar);
-		this.menuContato.setForeground(Color.DARK_GRAY);
+		this.menuContato.setForeground(Color.BLACK);
 		this.menuContato.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.menuBar.add(this.menuContato);
 		this.itemCadastrar.addActionListener(new ActionListener() {
@@ -58,14 +58,18 @@ public class JFrame_Janela extends JFrame {
 				abrirTelaCadastro();
 			}
 		});
-		this.itemCadastrar.setForeground(Color.DARK_GRAY);
+		this.itemCadastrar.setForeground(Color.BLACK);
 		this.itemCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.menuContato.add(this.itemCadastrar);
-		this.itemConsultar.setForeground(Color.DARK_GRAY);
+		this.itemConsultar.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemConsultar);
+		this.itemAlterar.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemAlterar);
+		this.itemRemover.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemRemover);
+		this.menuAjuda.setForeground(Color.BLACK);
 		this.menuBar.add(this.menuAjuda);
+		this.itemSobre.setForeground(Color.BLACK);
 		this.menuAjuda.add(this.itemSobre);
 		this.itemSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

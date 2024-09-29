@@ -37,11 +37,11 @@ public class MenuPrincipal extends JPanel {
 		this.lblNewLabel.setBorder(null);
 		this.lblNewLabel.setForeground(new Color(255, 255, 255));
 		this.lblNewLabel.setBackground(new Color(255, 255, 255));
-		this.lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		this.panel.add(this.lblNewLabel, "cell 1 1,alignx center,aligny center");
 		this.btn_cadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				abrirTelaCadastro();
 			}
 		});
 		this.btn_cadastrar.setBackground(new Color(255, 255, 255));
@@ -59,5 +59,10 @@ public class MenuPrincipal extends JPanel {
 		this.btnNewButton.setBackground(new Color(255, 255, 255));
 		this.btnNewButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnNewButton, "cell 1 8,growx");
+	}
+
+	protected void abrirTelaCadastro() {
+		JFrame_Janela.frame.setContentPane(new TelaCadastro());
+		JFrame_Janela.frame.setVisible(true);
 	}
 }
