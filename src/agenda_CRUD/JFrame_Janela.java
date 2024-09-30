@@ -31,7 +31,7 @@ public class JFrame_Janela extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 					frame = new JFrame_Janela();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -70,8 +70,18 @@ public class JFrame_Janela extends JFrame {
 		});
 		this.itemConsultar.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemConsultar);
+		this.itemAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaAlterar();
+			}
+		});
 		this.itemAlterar.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemAlterar);
+		this.itemRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaRemover();
+			}
+		});
 		this.itemRemover.setForeground(Color.BLACK);
 		this.menuContato.add(this.itemRemover);
 		this.menuAjuda.setForeground(Color.BLACK);
@@ -94,6 +104,16 @@ public class JFrame_Janela extends JFrame {
 
 	protected void abrirTelaConsulta() {
 		this.setContentPane(new TelaConsulta());
+		this.setVisible(true);
+	}
+
+	protected void abrirTelaAlterar() {
+		this.setContentPane(new TelaAlterar());
+		this.setVisible(true);
+	}
+
+	protected void abrirTelaRemover() {
+		this.setContentPane(new TelaRemover());
 		this.setVisible(true);
 	}
 }

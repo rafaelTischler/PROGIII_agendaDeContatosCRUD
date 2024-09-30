@@ -69,11 +69,10 @@ public class TelaCadastro extends JPanel {
 		this.txtTipo.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.panel.add(this.txtTipo, "cell 1 6,alignx right,aligny center");
 		this.btngrp_tipoContato.add(this.rdbtn_pessoal);
+		this.rdbtn_pessoal.setOpaque(false);
 		this.rdbtn_pessoal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.rdbtn_pessoal.setForeground(Color.WHITE);
-		this.rdbtn_pessoal.setOpaque(false);
 		this.panel.add(this.rdbtn_pessoal, "flowx,cell 2 6");
-		this.btnVoltar.setOpaque(false);
 		this.btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				abrirMenuPrincipal();
@@ -82,11 +81,10 @@ public class TelaCadastro extends JPanel {
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnVoltar, "flowx,cell 2 8,alignx right,aligny center");
 		this.btngrp_tipoContato.add(this.rdbtn_profissional);
-		this.rdbtn_profissional.setForeground(Color.WHITE);
 		this.rdbtn_profissional.setOpaque(false);
+		this.rdbtn_profissional.setForeground(Color.WHITE);
 		this.rdbtn_profissional.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.rdbtn_profissional, "cell 2 6");
-		this.btnCadastrar.setOpaque(false);
 		this.btnCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnCadastrar, "cell 3 8,alignx right,aligny center");
 	}

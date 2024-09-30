@@ -20,6 +20,8 @@ public class MenuPrincipal extends JPanel {
 	private final JButton btn_alterar = new JButton("Alterar");
 	private final JButton btn_remover = new JButton("Remover");
 	private final JButton btn_sair = new JButton("Sair");
+	private final JLabel lblNewLabel = new JLabel(
+			"<html>\r\n\t<div style='text-align: center;'>\r\n\t\t<p>AGENDA DE</p>\r\n\t\t<h1>CONTATOS</h1>\r\n\t<div>\r\n<html>");
 
 	public MenuPrincipal() {
 		initComponents();
@@ -33,47 +35,50 @@ public class MenuPrincipal extends JPanel {
 		setLayout(new MigLayout("", "[][150.00][][grow]", "[][grow][]"));
 		this.panel.setBackground(new Color(61, 64, 91));
 		add(this.panel, "cell 1 1,grow");
-		this.panel.setLayout(new MigLayout("", "[][grow][]", "[][][grow][][][][][grow][][]"));
+		this.panel.setLayout(new MigLayout("", "[][grow][]", "[][][][][grow][][][][][grow][][]"));
+		this.lblNewLabel.setForeground(Color.WHITE);
+		this.lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		this.panel.add(this.lblNewLabel, "cell 1 1,alignx left,aligny center");
 		this.txtMenu.setBorder(null);
 		this.txtMenu.setForeground(new Color(255, 255, 255));
 		this.txtMenu.setBackground(new Color(255, 255, 255));
 		this.txtMenu.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		this.panel.add(this.txtMenu, "cell 1 1,alignx center,aligny center");
-		this.btn_cadastrar.setOpaque(false);
+		this.panel.add(this.txtMenu, "cell 1 3,alignx center,aligny center");
 		this.btn_cadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				abrirTelaCadastro();
 			}
 		});
-		this.btn_cadastrar.setBackground(new Color(255, 255, 255));
 		this.btn_cadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.btn_consultar.setOpaque(false);
 		this.btn_consultar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				abrirTelaConsulta();
 			}
 		});
-		this.btn_consultar.setBackground(new Color(255, 255, 255));
 		this.btn_consultar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.btn_alterar.setOpaque(false);
-		this.btn_alterar.setBackground(new Color(255, 255, 255));
+		this.btn_alterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaAlterar();
+			}
+		});
 		this.btn_alterar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.btn_remover.setOpaque(false);
-		this.btn_remover.setBackground(new Color(255, 255, 255));
+		this.btn_remover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirTelaRemover();
+			}
+		});
 		this.btn_remover.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btn_cadastrar, "cell 1 3,growx");
-		this.panel.add(this.btn_consultar, "cell 1 4,growx");
-		this.panel.add(this.btn_alterar, "cell 1 5,growx");
-		this.panel.add(this.btn_remover, "cell 1 6,growx");
+		this.panel.add(this.btn_cadastrar, "cell 1 5,growx");
+		this.panel.add(this.btn_consultar, "cell 1 6,growx");
+		this.panel.add(this.btn_alterar, "cell 1 7,growx");
+		this.panel.add(this.btn_remover, "cell 1 8,growx");
 		this.btn_sair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		this.btn_sair.setOpaque(false);
-		this.btn_sair.setBackground(new Color(255, 255, 255));
 		this.btn_sair.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btn_sair, "cell 1 8,growx");
+		this.panel.add(this.btn_sair, "cell 1 10,growx");
 	}
 
 	protected void abrirTelaCadastro() {
@@ -83,6 +88,16 @@ public class MenuPrincipal extends JPanel {
 
 	protected void abrirTelaConsulta() {
 		JFrame_Janela.frame.setContentPane(new TelaConsulta());
+		JFrame_Janela.frame.setVisible(true);
+	}
+
+	protected void abrirTelaAlterar() {
+		JFrame_Janela.frame.setContentPane(new TelaAlterar());
+		JFrame_Janela.frame.setVisible(true);
+	}
+
+	protected void abrirTelaRemover() {
+		JFrame_Janela.frame.setContentPane(new TelaRemover());
 		JFrame_Janela.frame.setVisible(true);
 	}
 }

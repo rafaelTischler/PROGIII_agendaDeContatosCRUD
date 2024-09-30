@@ -12,13 +12,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 public class TelaConsulta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel panel = new JPanel();
 	private final JLabel txtTelaCons = new JLabel("TelaConsulta");
-	private final JLabel txtBusca = new JLabel("Buscar por nome: ");
+	private final JLabel txtBusca = new JLabel("Nome: ");
 	private final JTextField edit_nomeConsulta = new JTextField();
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JButton btnBuscar = new JButton("Buscar");
@@ -45,16 +46,12 @@ public class TelaConsulta extends JPanel {
 		this.panel.add(this.txtTelaCons, "flowy,cell 1 1 2 1");
 		this.txtBusca.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.txtBusca.setForeground(Color.WHITE);
-		this.panel.add(this.txtBusca, "cell 1 3,alignx trailing");
+		this.panel.add(this.txtBusca, "cell 1 3,alignx right");
 		this.panel.add(this.edit_nomeConsulta, "cell 2 3,growx,aligny center");
-		this.btnBuscar.setOpaque(false);
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnBuscar, "cell 3 3,alignx right,aligny center");
-		this.scrollPane.setBackground(new Color(255, 127, 80));
+		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
 		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
-		this.tb_consulta.setOpaque(false);
 		this.tb_consulta.setForeground(Color.BLACK);
-		this.tb_consulta.setBackground(new Color(255, 250, 200));
 		this.tb_consulta.setColumnSelectionAllowed(true);
 		this.tb_consulta.setRowSelectionAllowed(true);
 		this.tb_consulta.getTableHeader().setReorderingAllowed(false);
@@ -76,9 +73,8 @@ public class TelaConsulta extends JPanel {
 				abrirMenuPrincipal();
 			}
 		});
-		this.btnVoltar.setOpaque(false);
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnVoltar, "cell 3 7,alignx right,aligny center");
+		this.panel.add(this.btnVoltar, "cell 3 7,growx,aligny center");
 	}
 
 	protected void abrirMenuPrincipal() {
