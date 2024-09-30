@@ -24,67 +24,59 @@ public class Arquivo {
 				bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt"));
 				bw.close();
 			} catch (IOException e1) {
+				System.out.println("Erro na criação do arquivo: " + e.getMessage());
 			}
 		}
 	}
 
-	public void gravar(Contato contato) {
+	public void gravarContato(Contato contato) {
 		try {
 			bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt", true));
-
-			bw.write(contato.getNome() + "," + contato.getApelido() + "," + contato.getNumero() + ","
-					+ contato.getEmail());
+			bw.write(contato.getNome() + "," + contato.getEmail() + "," + contato.getTelefone() + "," + contato.getTipo());
 			bw.write("\n");
-
 			bw.close();
 		} catch (Exception e) {
-			System.out.println("Erro na abertura de arquivo para grava��o.");
+			System.out.println("Erro na abertura de arquivo para gravação: " + e.getMessage());
 		}
 	}
 
-	public LinkedList<Contato> ler() {
-		String nome = "";
-		String[] conteudo;
-
-		LinkedList<Contato> co = new LinkedList<>();
+	public LinkedList<Contato> lerContato() {
+		String linha;
+		String[] info;
+		LinkedList<Contato> listaContatos = new LinkedList<>();
 		try {
 			br = new BufferedReader(new FileReader(this.arquivo + ".txt"));
-			while ((nome = br.readLine()) != null) {
-
-				conteudo = nome.split(",");
-
-				Contato c = new Contato(conteudo[0], conteudo[1], conteudo[2], conteudo[3]);
-				co.add(c);
+			while ((linha = br.readLine()) != null) {
+				info = linha.split(",");
+				Contato contato = new Contato(info[0], info[1], info[2], info[3]);
+				listaContatos.add(contato);
 			}
 			br.close();
 		} catch (Exception e) {
-			System.out.println("Erro na abertura de arquivo para leitura.");
+			System.out.println("Erro na abertura de arquivo para leitura: " + e.getMessage());
 		}
-		return co;
+		return listaContatos;
 	}
 
-	public void editar(String nomevelho, Contato contato) {
-		LinkedList<Contato> co = new LinkedList<>();
+	public void alterarContato(String nomeAntigo, Contato contato) {
+		LinkedList<Contato> listaContatos = new LinkedList<>();
 		String linha;
-
 		try (BufferedReader br = new BufferedReader(new FileReader(this.arquivo + ".txt"))) {
 			while ((linha = br.readLine()) != null) {
-				String[] conteudo = linha.split(",");
-				Contato c = new Contato(conteudo[0], conteudo[1], conteudo[2], conteudo[3]);
-				if (conteudo[0].equals(nomevelho)) {
-					c = contato;
-					System.out.println(c.getNome());
+				String[] info = linha.split(",");
+				Contato novoContato = new Contato(info[0], info[1], info[2], info[3]);
+				if (info[0].equals(nomeAntigo)) {
+					novoContato = contato;
+					System.out.println(novoContato.getNome());
 				}
-
-				co.add(c);
+				listaContatos.add(novoContato);
 			}
 		} catch (IOException e) {
 			System.out.println("Erro na abertura de arquivo para leitura: " + e.getMessage());
 		}
-
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt"))) {
-			for (Contato con : co) {
-				bw.write(con.getNome() + "," + con.getApelido() + "," + con.getNumero() + "," + con.getEmail());
+			for (Contato contatoNovo : listaContatos) {
+				bw.write(contatoNovo.getNome() + "," + contatoNovo.getEmail() + "," + contatoNovo.getTelefone() + "," + contatoNovo.getTipo());
 				bw.newLine();
 			}
 		} catch (IOException e) {
@@ -92,28 +84,25 @@ public class Arquivo {
 		}
 	}
 
-	public void deletar(String texto) {
-		LinkedList<Contato> co = new LinkedList<>();
+	public void removerContato(String nome) {
+		LinkedList<Contato> listaContatos = new LinkedList<>();
 		String linha;
-
 		try (BufferedReader br = new BufferedReader(new FileReader(this.arquivo + ".txt"))) {
 			while ((linha = br.readLine()) != null) {
-				String[] conteudo = linha.split(",");
-				Contato c = new Contato(conteudo[0], conteudo[1], conteudo[2], conteudo[3]);
-				if (!conteudo[0].equals(texto)) {
-					co.add(c);
+				String[] info = linha.split(",");
+				Contato contato = new Contato(info[0], info[1], info[2], info[3]);
+				if (!info[0].equals(nome)) {
+					listaContatos.add(contato);
 				} else {
-					System.out.println("Contato removido: " + conteudo[0]);
+					System.out.println("Contato removido: " + info[0]); // JOptionPane
 				}
 			}
 		} catch (IOException e) {
 			System.out.println("Erro na abertura de arquivo para leitura: " + e.getMessage());
 		}
-
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt"))) {
-			for (Contato contato : co) {
-				bw.write(contato.getNome() + "," + contato.getApelido() + "," + contato.getNumero() + ","
-						+ contato.getEmail());
+			for (Contato contato : listaContatos) {
+				bw.write(contato.getNome() + "," + contato.getEmail() + "," + contato.getTelefone() + "," + contato.getTipo());
 				bw.newLine();
 			}
 		} catch (IOException e) {

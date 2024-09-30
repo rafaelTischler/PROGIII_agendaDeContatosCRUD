@@ -2,55 +2,56 @@ package agenda_CRUD;
 
 public class Contato {
 	private String nome;
-	private String apelido;
-	private String numero;
 	private String email;
+	private String telefone;
+	private String tipo;
 
 	public Contato() {
 
 	}
 
-	public Contato(String nome, String apelido, String numero, String email) {
+	public Contato(String nome, String email, String telefone, String tipo) {
+		super();
 		this.nome = nome;
-		this.apelido = apelido;
 		this.email = email;
-		this.numero = numero;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
+		this.telefone = telefone;
+		this.tipo = tipo;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public String getApelido() {
-		return apelido;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public String getNumero() {
-		return numero;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String[] toLinha() {
-		return new String[] { this.nome, this.apelido, this.numero, this.email };
+		return new String[] { this.nome, this.email, this.telefone, this.tipo };
 	}
 
 }
