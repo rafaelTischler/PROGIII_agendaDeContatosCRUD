@@ -4,7 +4,7 @@
 
 🚀 Funcionalidades
     
-    ➕ Adicionar Contato: Permite incluir um novo contato na agenda, com informações como nome, telefone e e-mail.
+    ➕ Adicionar Contato: Permite incluir um novo contato na agenda.
     👁️ Visualizar Contatos: Exibe a lista completa de contatos armazenados.
     ✏️ Editar Contato: Atualiza as informações de um contato existente.
     ❌ Excluir Contato: Remove um contato da agenda.
