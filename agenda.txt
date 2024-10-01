@@ -1,2 +1,4 @@
 teste,teste@gmail.com,(55)9966,Pessoal
 Rafael,rafael@gmail.com,tenho,Profissional
+Maurico,tem,acho que deve ter,Profissional
+Carol,carol@gmail.com,9966umtapaonatuaorelha,Profissional
