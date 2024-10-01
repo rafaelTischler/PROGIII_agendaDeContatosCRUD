@@ -27,13 +27,14 @@ public class TelaConsulta extends JPanel {
 	private final JTable tb_consulta = new JTable();
 	private final JButton btnVoltar = new JButton("Voltar");
 	private LinkedList<Contato> contatos;
+	private Arquivo arquivo = new Arquivo("agenda");
 
 	public TelaConsulta() {
 		this.edit_nomeConsulta.setBackground(new Color(255, 250, 200));
 		this.edit_nomeConsulta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.edit_nomeConsulta.setColumns(10);
 		initComponents();
-		contatos = carregarArquivo();
+		contatos = arquivo.lerContato();
 		preencherTabela();
 	}
 
@@ -59,6 +60,7 @@ public class TelaConsulta extends JPanel {
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
 		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
+		this.tb_consulta.setBackground(new Color(255, 250, 200));
 		this.tb_consulta.setForeground(Color.BLACK);
 		this.tb_consulta.setColumnSelectionAllowed(true);
 		this.tb_consulta.setRowSelectionAllowed(true);
@@ -89,11 +91,6 @@ public class TelaConsulta extends JPanel {
 	protected void abrirMenuPrincipal() {
 		JFrame_Janela.frame.setContentPane(new MenuPrincipal());
 		JFrame_Janela.frame.setVisible(true);
-	}
-
-	private LinkedList<Contato> carregarArquivo() {
-		Arquivo arquivo = new Arquivo("agenda");
-		return arquivo.lerContato();
 	}
 
 	private void preencherTabela() {

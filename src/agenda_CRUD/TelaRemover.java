@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,12 +29,16 @@ public class TelaRemover extends JPanel {
 	private final JTable tb_remover = new JTable();
 	private final JButton btnVoltar = new JButton("Voltar");
 	private final JButton btnRemover = new JButton("Remover");
+	private LinkedList<Contato> contatos;
+	private Arquivo arquivo = new Arquivo("agenda");
 
 	public TelaRemover() {
 		this.edit_nomeAlterar.setBackground(new Color(255, 250, 200));
 		this.edit_nomeAlterar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.edit_nomeAlterar.setColumns(10);
 		initComponents();
+		contatos = arquivo.lerContato();
+		preencherTabela();
 	}
 
 	private void initComponents() {
@@ -58,7 +65,7 @@ public class TelaRemover extends JPanel {
 		this.tb_remover.getTableHeader().setReorderingAllowed(false);
 		this.tb_remover.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "Nome:", "E-mail:", "Telefone:", "Tipo:" }) {
-					boolean[] columnEditables = new boolean[] { false, false, false };
+					boolean[] columnEditables = new boolean[] { false, false, false, false };
 
 					public boolean isCellEditable(int row, int column) {
 						return columnEditables[column];
@@ -83,6 +90,29 @@ public class TelaRemover extends JPanel {
 	protected void abrirMenuPrincipal() {
 		JFrame_Janela.frame.setContentPane(new MenuPrincipal());
 		JFrame_Janela.frame.setVisible(true);
+	}
+
+	private void preencherTabela() {
+		DefaultTableModel model = (DefaultTableModel) tb_remover.getModel();
+		model.setRowCount(0);
+		for (Contato contato : contatos) {
+			model.addRow(
+					new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
+		}
+	}
+
+	private void buscarContato(String nome) {
+		DefaultTableModel model = (DefaultTableModel) tb_remover.getModel();
+		model.setRowCount(0);
+		for (Contato contato : contatos) {
+			if (contato.getNome().toLowerCase().contains(nome.toLowerCase())) {
+				model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(),
+						contato.getTipo() });
+			}
+		}
+		if (model.getRowCount() == 0) {
+			JOptionPane.showMessageDialog(this, "Contato não encontrado.");
+		}
 	}
 
 }

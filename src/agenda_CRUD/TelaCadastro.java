@@ -31,7 +31,7 @@ public class TelaCadastro extends JPanel {
 	private final JRadioButton rdbtn_profissional = new JRadioButton("Profissional");
 	private final ButtonGroup btngrp_tipoContato = new ButtonGroup();
 	private final JButton btnCadastrar = new JButton("Cadastrar");
-	Arquivo arquivo = new Arquivo("agenda");
+	private Arquivo arquivo = new Arquivo("agenda");
 
 	public TelaCadastro() {
 		this.edit_cellCad.setBackground(new Color(255, 250, 200));
