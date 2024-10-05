@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 import net.miginfocom.swing.MigLayout;
 
 public class TelaRemover extends JPanel {
@@ -23,7 +21,7 @@ public class TelaRemover extends JPanel {
 	private final JPanel panel = new JPanel();
 	private final JLabel txtTelaRemover = new JLabel("TelaRemover");
 	private final JLabel txtBusca = new JLabel("Nome: ");
-	private final JTextField edit_nomeAlterar = new JTextField();
+	private final JTextField edit_nomeRemover = new JTextField();
 	private final JScrollPane scrollPane = new JScrollPane();
 	private final JButton btnBuscar = new JButton("Buscar");
 	private final JTable tb_remover = new JTable();
@@ -33,9 +31,9 @@ public class TelaRemover extends JPanel {
 	private Arquivo arquivo = new Arquivo("agenda");
 
 	public TelaRemover() {
-		this.edit_nomeAlterar.setBackground(new Color(255, 250, 200));
-		this.edit_nomeAlterar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.edit_nomeAlterar.setColumns(10);
+		this.edit_nomeRemover.setBackground(new Color(255, 250, 200));
+		this.edit_nomeRemover.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		this.edit_nomeRemover.setColumns(10);
 		initComponents();
 		contatos = arquivo.lerContato();
 		preencherTabela();
@@ -54,23 +52,27 @@ public class TelaRemover extends JPanel {
 		this.txtBusca.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.txtBusca.setForeground(Color.WHITE);
 		this.panel.add(this.txtBusca, "cell 1 3,alignx right");
-		this.panel.add(this.edit_nomeAlterar, "cell 2 3,growx,aligny center");
+		this.panel.add(this.edit_nomeRemover, "cell 2 3,growx,aligny center");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buscarContato(edit_nomeRemover.getText());
+			}
+		});
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
 		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
 		this.tb_remover.setBackground(new Color(255, 250, 200));
 		this.tb_remover.setForeground(Color.BLACK);
-		this.tb_remover.setColumnSelectionAllowed(true);
+		this.tb_remover.setColumnSelectionAllowed(false);
 		this.tb_remover.setRowSelectionAllowed(true);
 		this.tb_remover.getTableHeader().setReorderingAllowed(false);
-		this.tb_remover.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "Nome:", "E-mail:", "Telefone:", "Tipo:" }) {
-					boolean[] columnEditables = new boolean[] { false, false, false, false };
+		this.tb_remover.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome:", "E-mail:", "Telefone:", "Tipo:" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false };
 
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		this.tb_remover.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.tb_remover.getColumnModel().getColumn(0).setResizable(false);
 		this.tb_remover.getColumnModel().getColumn(1).setResizable(false);
@@ -83,6 +85,11 @@ public class TelaRemover extends JPanel {
 		});
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnVoltar, "cell 2 7,alignx right,aligny center");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removerContato();
+			}
+		});
 		this.btnRemover.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnRemover, "cell 3 7");
 	}
@@ -96,8 +103,7 @@ public class TelaRemover extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tb_remover.getModel();
 		model.setRowCount(0);
 		for (Contato contato : contatos) {
-			model.addRow(
-					new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
+			model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
 		}
 	}
 
@@ -106,12 +112,28 @@ public class TelaRemover extends JPanel {
 		model.setRowCount(0);
 		for (Contato contato : contatos) {
 			if (contato.getNome().toLowerCase().contains(nome.toLowerCase())) {
-				model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(),
-						contato.getTipo() });
+				model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
 			}
 		}
 		if (model.getRowCount() == 0) {
 			JOptionPane.showMessageDialog(this, "Contato não encontrado.");
+		}
+	}
+
+	private void removerContato() {
+		int linha = tb_remover.getSelectedRow();
+		if (linha >= 0) {
+			String nome = tb_remover.getValueAt(linha, 0).toString();
+			int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja remover o contato " + nome + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+			if (confirmacao == JOptionPane.YES_OPTION) {
+				contatos.removeIf(contato -> contato.getNome().equals(nome));
+				arquivo.regravarContatos(contatos);
+				DefaultTableModel model = (DefaultTableModel) tb_remover.getModel();
+				model.removeRow(linha);
+				JOptionPane.showMessageDialog(this, "Contato removido com sucesso!");
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Por favor, selecione um contato para remover");
 		}
 	}
 

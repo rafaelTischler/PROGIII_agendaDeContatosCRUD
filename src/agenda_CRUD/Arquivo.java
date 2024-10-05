@@ -5,9 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Arquivo {
 	private BufferedReader br;
@@ -84,7 +82,7 @@ public class Arquivo {
 		}
 	}
 
-	public void alterarContato(LinkedList<Contato> contatos) {
+	public void regravarContatos(LinkedList<Contato> contatos) {
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt"))) {
 			for (Contato contato : contatos) {
 				bw.write(contato.getNome() + "," + contato.getEmail() + "," + contato.getTelefone() + "," + contato.getTipo());

@@ -62,7 +62,7 @@ public class TelaConsulta extends JPanel {
 		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
 		this.tb_consulta.setBackground(new Color(255, 250, 200));
 		this.tb_consulta.setForeground(Color.BLACK);
-		this.tb_consulta.setColumnSelectionAllowed(true);
+		this.tb_consulta.setColumnSelectionAllowed(false);
 		this.tb_consulta.setRowSelectionAllowed(true);
 		this.tb_consulta.getTableHeader().setReorderingAllowed(false);
 		this.tb_consulta.setModel(

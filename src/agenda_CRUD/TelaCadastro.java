@@ -5,7 +5,6 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
