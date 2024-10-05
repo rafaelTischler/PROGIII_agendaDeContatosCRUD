@@ -1,6 +1,8 @@
 package agenda_CRUD;
 
 import java.awt.EventQueue;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.JMenuBar;
@@ -11,6 +13,7 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class JFrame_Janela extends JFrame {
 
@@ -49,8 +52,9 @@ public class JFrame_Janela extends JFrame {
 		setResizable(false);
 		setTitle("Rafael Tischler ADS 19 - Agenda de Contatos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(100, 100, 800, 600);
 		setJMenuBar(this.menuBar);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(JFrame_Janela.class.getResource("/agenda_CRUD/telephone.png")));
 		this.menuContato.setForeground(Color.BLACK);
 		this.menuContato.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.menuBar.add(this.menuContato);
