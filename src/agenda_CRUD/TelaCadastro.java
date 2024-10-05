@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -29,6 +30,7 @@ public class TelaCadastro extends JPanel {
 	private final JRadioButton rdbtn_profissional = new JRadioButton("Profissional");
 	private final ButtonGroup btngrp_tipoContato = new ButtonGroup();
 	private final JButton btnCadastrar = new JButton("Cadastrar");
+	private Arquivo arquivo = new Arquivo("agenda");
 
 	public TelaCadastro() {
 		this.edit_cellCad.setBackground(new Color(255, 250, 200));
@@ -69,6 +71,7 @@ public class TelaCadastro extends JPanel {
 		this.txtTipo.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.panel.add(this.txtTipo, "cell 1 6,alignx right,aligny center");
 		this.btngrp_tipoContato.add(this.rdbtn_pessoal);
+		this.rdbtn_pessoal.setSelected(true);
 		this.rdbtn_pessoal.setOpaque(false);
 		this.rdbtn_pessoal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.rdbtn_pessoal.setForeground(Color.WHITE);
@@ -85,6 +88,11 @@ public class TelaCadastro extends JPanel {
 		this.rdbtn_profissional.setForeground(Color.WHITE);
 		this.rdbtn_profissional.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.rdbtn_profissional, "cell 2 6");
+		this.btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvarContato();
+			}
+		});
 		this.btnCadastrar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnCadastrar, "cell 3 8,alignx right,aligny center");
 	}
@@ -92,6 +100,30 @@ public class TelaCadastro extends JPanel {
 	protected void abrirMenuPrincipal() {
 		JFrame_Janela.frame.setContentPane(new MenuPrincipal());
 		JFrame_Janela.frame.setVisible(true);
+	}
+
+	private void salvarContato() {
+		String nome = edit_nomeCad.getText();
+		String email = edit_emailCad.getText();
+		String celular = edit_cellCad.getText();
+		String tipo = "";
+		if (rdbtn_pessoal.isSelected()) {
+			tipo = "Pessoal";
+		} else if (rdbtn_profissional.isSelected()) {
+			tipo = "Profissional";
+		}
+
+		if (!nome.isEmpty() && !email.isEmpty() && !celular.isEmpty()) {
+			Contato novoContato = new Contato(nome, email, celular, tipo);
+			arquivo.gravarContato(novoContato);
+			JOptionPane.showMessageDialog(this, "Contato salvo com sucesso!");
+			edit_nomeCad.setText("");
+			edit_emailCad.setText("");
+			edit_cellCad.setText("");
+		} else {
+			JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+		}
+
 	}
 
 }

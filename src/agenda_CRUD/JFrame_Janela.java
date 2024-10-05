@@ -8,7 +8,6 @@ import javax.swing.JMenu;
 import java.awt.Font;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -90,9 +89,9 @@ public class JFrame_Janela extends JFrame {
 		this.menuAjuda.add(this.itemSobre);
 		this.itemSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frame, "Trabalho Avaliativo - Agenda de Contatos\n" + "Versão: 1.0\n"
-						+ "Desenvolvedor: Rafael Müller Tischler\n" + "E-mail: rafaelmullertischler@gmail.com\n",
-						"Sobre", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Trabalho Avaliativo - Agenda de Contatos\n" + "Versão: 1.0\n" + "Desenvolvedor: Rafael Müller Tischler\n"
+																																		+ "E-mail: rafaelmullertischler@gmail.com\n", "Sobre",
+																																		JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}
