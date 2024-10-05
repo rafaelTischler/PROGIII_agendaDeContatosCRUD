@@ -84,6 +84,17 @@ public class Arquivo {
 		}
 	}
 
+	public void alterarContato(LinkedList<Contato> contatos) {
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.arquivo + ".txt"))) {
+			for (Contato contato : contatos) {
+				bw.write(contato.getNome() + "," + contato.getEmail() + "," + contato.getTelefone() + "," + contato.getTipo());
+				bw.newLine();
+			}
+		} catch (IOException e) {
+			System.out.println("Erro ao escrever no arquivo: " + e.getMessage());
+		}
+	}
+
 	public void removerContato(String nome) {
 		LinkedList<Contato> listaContatos = new LinkedList<>();
 		String linha;

@@ -68,14 +68,13 @@ public class TelaAlterar extends JPanel {
 		this.tb_alterar.setColumnSelectionAllowed(true);
 		this.tb_alterar.setRowSelectionAllowed(true);
 		this.tb_alterar.getTableHeader().setReorderingAllowed(false);
-		this.tb_alterar.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "Nome:", "E-mail:", "Telefone:", "Tipo:" }) {
-					boolean[] columnEditables = new boolean[] { true, true, true, true };
+		this.tb_alterar.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome:", "E-mail:", "Telefone:", "Tipo:" }) {
+			boolean[] columnEditables = new boolean[] { true, true, true, true };
 
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
 		this.tb_alterar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.tb_alterar.getColumnModel().getColumn(0).setResizable(false);
 		this.tb_alterar.getColumnModel().getColumn(1).setResizable(false);
@@ -88,6 +87,11 @@ public class TelaAlterar extends JPanel {
 		});
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		this.panel.add(this.btnVoltar, "cell 2 7,alignx right,aligny center");
+		btnAlterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				alterarTabela();
+			}
+		});
 		this.btnAlterar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.panel.add(this.btnAlterar, "cell 3 7");
 	}
@@ -101,8 +105,7 @@ public class TelaAlterar extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tb_alterar.getModel();
 		model.setRowCount(0);
 		for (Contato contato : contatos) {
-			model.addRow(
-					new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
+			model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
 		}
 	}
 
@@ -111,8 +114,7 @@ public class TelaAlterar extends JPanel {
 		model.setRowCount(0);
 		for (Contato contato : contatos) {
 			if (contato.getNome().toLowerCase().contains(nome.toLowerCase())) {
-				model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(),
-						contato.getTipo() });
+				model.addRow(new Object[] { contato.getNome(), contato.getEmail(), contato.getTelefone(), contato.getTipo() });
 			}
 		}
 		if (model.getRowCount() == 0) {
@@ -122,17 +124,23 @@ public class TelaAlterar extends JPanel {
 
 	public void alterarTabela() {
 		DefaultTableModel model = (DefaultTableModel) tb_alterar.getModel();
-		contatos.clear();
+		LinkedList<Contato> novosContatos = new LinkedList<>();
 		for (int i = 0; i < model.getRowCount(); i++) {
 			String nome = (String) model.getValueAt(i, 0);
 			String email = (String) model.getValueAt(i, 1);
 			String telefone = (String) model.getValueAt(i, 2);
 			String tipo = (String) model.getValueAt(i, 3);
 			Contato contato = new Contato(nome, email, telefone, tipo);
-			contatos.add(contato);
+			novosContatos.add(contato);
 		}
-		//arquivo.gravarContato(contatos);
-
+		boolean houveAlteracao = !novosContatos.equals(contatos);
+		if (houveAlteracao) {
+			contatos.clear();
+			contatos.addAll(novosContatos);
+			arquivo.alterarContato(contatos);
+			JOptionPane.showMessageDialog(this, "Contato(s) alterado(s) com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(this, "Nenhuma alteração foi realizada.");
+		}
 	}
-
 }

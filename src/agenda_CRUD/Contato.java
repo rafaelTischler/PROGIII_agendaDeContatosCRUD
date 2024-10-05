@@ -54,4 +54,15 @@ public class Contato {
 		return new String[] { this.nome, this.email, this.telefone, this.tipo };
 	}
 
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		Contato other = (Contato) obj;
+		return nome.equals(other.nome) && email.equals(other.email) && telefone.equals(other.telefone) && tipo.equals(other.tipo);
+	}
+
 }
