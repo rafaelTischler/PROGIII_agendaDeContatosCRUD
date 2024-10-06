@@ -14,12 +14,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class TelaConsulta extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel panel = new JPanel();
-	private final JLabel txtTelaCons = new JLabel("TelaConsulta");
+	private final JLabel txtTelaCons = new JLabel("Consulta de contatos");
 	private final JLabel txtBusca = new JLabel("Nome: ");
 	private final JTextField edit_nomeConsulta = new JTextField();
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -28,6 +29,7 @@ public class TelaConsulta extends JPanel {
 	private final JButton btnVoltar = new JButton("Voltar");
 	private LinkedList<Contato> contatos;
 	private Arquivo arquivo = new Arquivo("agenda");
+	private final JTextArea txtrNestaTelaVoc = new JTextArea();
 
 	public TelaConsulta() {
 		this.edit_nomeConsulta.setBackground(new Color(255, 250, 200));
@@ -44,22 +46,30 @@ public class TelaConsulta extends JPanel {
 		setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow]"));
 		this.panel.setBackground(new Color(61, 64, 91));
 		add(this.panel, "cell 1 1,grow");
-		this.panel.setLayout(new MigLayout("", "[][][grow,fill][][]", "[][][][][][grow][][][grow]"));
+		this.panel.setLayout(new MigLayout("", "[][][grow,fill][][]", "[][][][][][][grow][][][grow]"));
 		this.txtTelaCons.setForeground(Color.WHITE);
 		this.txtTelaCons.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		this.panel.add(this.txtTelaCons, "flowy,cell 1 1 2 1");
+		txtrNestaTelaVoc.setForeground(Color.WHITE);
+		txtrNestaTelaVoc.setOpaque(false);
+		txtrNestaTelaVoc.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtrNestaTelaVoc.setText("Nesta tela, você pode visualizar todos os seus contatos em uma tabela organizada. Utilize a barra de busca para filtrar os contatos pelo nome e encontrar rapidamente a informação que você precisa.");
+		txtrNestaTelaVoc.setLineWrap(true);
+		txtrNestaTelaVoc.setWrapStyleWord(true);
+		
+		panel.add(txtrNestaTelaVoc, "cell 1 3 3 1,grow");
 		this.txtBusca.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.txtBusca.setForeground(Color.WHITE);
-		this.panel.add(this.txtBusca, "cell 1 3,alignx right");
-		this.panel.add(this.edit_nomeConsulta, "cell 2 3,growx,aligny center");
+		this.panel.add(this.txtBusca, "cell 1 4,alignx right");
+		this.panel.add(this.edit_nomeConsulta, "cell 2 4,growx,aligny center");
 		this.btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarContato(edit_nomeConsulta.getText());
 			}
 		});
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
-		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
+		this.panel.add(this.btnBuscar, "cell 3 4,growx,aligny center");
+		this.panel.add(this.scrollPane, "cell 1 6 3 1,grow");
 		this.tb_consulta.setBackground(new Color(255, 250, 200));
 		this.tb_consulta.setForeground(Color.BLACK);
 		this.tb_consulta.setColumnSelectionAllowed(false);
@@ -85,7 +95,7 @@ public class TelaConsulta extends JPanel {
 			}
 		});
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnVoltar, "cell 3 7,growx,aligny center");
+		this.panel.add(this.btnVoltar, "cell 3 8,growx,aligny center");
 	}
 
 	protected void abrirMenuPrincipal() {

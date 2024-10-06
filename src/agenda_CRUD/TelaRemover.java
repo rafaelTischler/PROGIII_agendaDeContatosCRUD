@@ -14,12 +14,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextArea;
 
 public class TelaRemover extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel panel = new JPanel();
-	private final JLabel txtTelaRemover = new JLabel("TelaRemover");
+	private final JLabel txtTelaRemover = new JLabel("Remover contatos");
 	private final JLabel txtBusca = new JLabel("Nome: ");
 	private final JTextField edit_nomeRemover = new JTextField();
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -29,6 +30,7 @@ public class TelaRemover extends JPanel {
 	private final JButton btnRemover = new JButton("Remover");
 	private LinkedList<Contato> contatos;
 	private Arquivo arquivo = new Arquivo("agenda");
+	private final JTextArea txtrNaveguePelosSeus = new JTextArea();
 
 	public TelaRemover() {
 		this.edit_nomeRemover.setBackground(new Color(255, 250, 200));
@@ -45,22 +47,30 @@ public class TelaRemover extends JPanel {
 		setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow]"));
 		this.panel.setBackground(new Color(61, 64, 91));
 		add(this.panel, "cell 1 1,grow");
-		this.panel.setLayout(new MigLayout("", "[][][grow,left][][]", "[][][][][][grow][][][grow]"));
+		this.panel.setLayout(new MigLayout("", "[][][grow,left][][]", "[][][][][][][][grow][][][grow]"));
 		this.txtTelaRemover.setForeground(Color.WHITE);
 		this.txtTelaRemover.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		this.panel.add(this.txtTelaRemover, "flowy,cell 1 1 2 1");
+		txtrNaveguePelosSeus.setText("Navegue pelos seus contatos na tabela abaixo ou utilize a barra de busca para encontrar o contato que deseja remover. Uma vez selecionado, você pode excluir permanentemente o contato da sua lista. Cuidado, pois esta ação é irreversível.");
+		txtrNaveguePelosSeus.setOpaque(false);
+		txtrNaveguePelosSeus.setWrapStyleWord(true);
+		txtrNaveguePelosSeus.setLineWrap(true);
+		txtrNaveguePelosSeus.setForeground(Color.WHITE);
+		txtrNaveguePelosSeus.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		
+		panel.add(txtrNaveguePelosSeus, "cell 1 3 3 1,grow");
 		this.txtBusca.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.txtBusca.setForeground(Color.WHITE);
-		this.panel.add(this.txtBusca, "cell 1 3,alignx right");
-		this.panel.add(this.edit_nomeRemover, "cell 2 3,growx,aligny center");
+		this.panel.add(this.txtBusca, "cell 1 5,alignx right");
+		this.panel.add(this.edit_nomeRemover, "cell 2 5,growx,aligny center");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarContato(edit_nomeRemover.getText());
 			}
 		});
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
-		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
+		this.panel.add(this.btnBuscar, "cell 3 5,growx,aligny center");
+		this.panel.add(this.scrollPane, "cell 1 7 3 1,grow");
 		this.tb_remover.setBackground(new Color(255, 250, 200));
 		this.tb_remover.setForeground(Color.BLACK);
 		this.tb_remover.setColumnSelectionAllowed(false);
@@ -84,14 +94,14 @@ public class TelaRemover extends JPanel {
 			}
 		});
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnVoltar, "cell 2 7,alignx right,aligny center");
+		this.panel.add(this.btnVoltar, "cell 2 9,alignx right,aligny center");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removerContato();
 			}
 		});
 		this.btnRemover.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnRemover, "cell 3 7");
+		this.panel.add(this.btnRemover, "cell 3 9");
 	}
 
 	protected void abrirMenuPrincipal() {

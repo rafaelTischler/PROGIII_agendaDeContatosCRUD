@@ -14,12 +14,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import net.miginfocom.swing.MigLayout;
+import javax.swing.JTextArea;
 
 public class TelaAlterar extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel panel = new JPanel();
-	private final JLabel txtTelaAlt = new JLabel("TelaAlterar");
+	private final JLabel txtTelaAlt = new JLabel("Editar contatos\r\n");
 	private final JLabel txtBusca = new JLabel("Nome: ");
 	private final JTextField edit_nomeAlterar = new JTextField();
 	private final JScrollPane scrollPane = new JScrollPane();
@@ -29,6 +30,7 @@ public class TelaAlterar extends JPanel {
 	private final JButton btnAlterar = new JButton("Confirmar");
 	private LinkedList<Contato> contatos;
 	private Arquivo arquivo = new Arquivo("agenda");
+	private final JTextArea txtrAquiVocPode = new JTextArea();
 
 	public TelaAlterar() {
 		this.edit_nomeAlterar.setBackground(new Color(255, 250, 200));
@@ -45,22 +47,30 @@ public class TelaAlterar extends JPanel {
 		setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow]"));
 		this.panel.setBackground(new Color(61, 64, 91));
 		add(this.panel, "cell 1 1,grow");
-		this.panel.setLayout(new MigLayout("", "[][][grow,right][][]", "[][][][][][grow][][][grow]"));
+		this.panel.setLayout(new MigLayout("", "[][][grow,right][][]", "[][][][][][][grow][][][grow]"));
 		this.txtTelaAlt.setForeground(Color.WHITE);
 		this.txtTelaAlt.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		this.panel.add(this.txtTelaAlt, "flowy,cell 1 1 2 1");
+		txtrAquiVocPode.setOpaque(false);
+		txtrAquiVocPode.setText("Aqui você pode atualizar as informações dos seus contatos. Visualize a lista completa ou use a busca para encontrar o contato desejado. Clique no campo que precisa ser editado, faça as alterações necessárias e salve para atualizar as informações.");
+		txtrAquiVocPode.setWrapStyleWord(true);
+		txtrAquiVocPode.setLineWrap(true);
+		txtrAquiVocPode.setForeground(Color.WHITE);
+		txtrAquiVocPode.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		
+		panel.add(txtrAquiVocPode, "cell 1 3 3 1,growx,aligny center");
 		this.txtBusca.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		this.txtBusca.setForeground(Color.WHITE);
-		this.panel.add(this.txtBusca, "cell 1 3,alignx right");
-		this.panel.add(this.edit_nomeAlterar, "cell 2 3,growx,aligny center");
+		this.panel.add(this.txtBusca, "cell 1 4,alignx right,aligny center");
+		this.panel.add(this.edit_nomeAlterar, "cell 2 4,growx,aligny center");
 		this.btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buscarContato(edit_nomeAlterar.getText());
 			}
 		});
 		this.btnBuscar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnBuscar, "cell 3 3,growx,aligny center");
-		this.panel.add(this.scrollPane, "cell 1 5 3 1,grow");
+		this.panel.add(this.btnBuscar, "cell 3 4,growx,aligny center");
+		this.panel.add(this.scrollPane, "cell 1 6 3 1,grow");
 		this.tb_alterar.setBackground(new Color(255, 250, 200));
 		this.tb_alterar.setForeground(Color.BLACK);
 		this.tb_alterar.setColumnSelectionAllowed(true);
@@ -84,14 +94,14 @@ public class TelaAlterar extends JPanel {
 			}
 		});
 		this.btnVoltar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		this.panel.add(this.btnVoltar, "cell 2 7,alignx right,aligny center");
+		this.panel.add(this.btnVoltar, "cell 2 8,alignx right,aligny center");
 		btnAlterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				alterarTabela();
 			}
 		});
 		this.btnAlterar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		this.panel.add(this.btnAlterar, "cell 3 7");
+		this.panel.add(this.btnAlterar, "cell 3 8");
 	}
 
 	protected void abrirMenuPrincipal() {
